@@ -1,58 +1,65 @@
-# Goblin Fighter
+## Goblin Fighter Planning
 
-## Demo
+### State
 
-[Link to Demo](https://alchemy-web-goblin-fighter.netlify.app/)
+-   array of goblins (name, health points)
+-   number of defeated goblins (derived from array of goblins OR just store as variable)
+-   player hp
 
-## Getting Started
+Goblin objects will look like this:
 
-Use [this template](https://github.com/alchemycodelab/web-template) to get started.
+```js
+  {name: 'Professor Goblin', hp: 4}
+```
 
-### Learning Objectives
+### HTML Elements (on page load)
 
--   Add event listeners to DOM elements as part of a loop
+-   input for adding new goblins
+-   button for adding new goblins
+-   span for tracking defeated goblins
+-   span for tracking player HP
+-   `<div>` for our goblin list
 
-### Description
+### Functions
 
-In this deliverable, we will be creating a Goblin game. This deliverable will challenge you to maintain game state and have your render function render different content depending on that state.
+-   `displayGoblins` -- clear out the list, and render a goblin element for each goblin in your list of goblins
+-   `renderGoblin(goblin)` - create a goblin element for specific goblin object
+-   `goblinClickHandler` - takes care of the game logic when goblins are clicked
 
-### Acceptance Criteria
+## To Do List
 
--   On load, see the HP and names of at least two default goblins
--   On submitting the 'challenge goblin' form, add a new goblin object (with 3 HP and a name) to state and display it to the DOM
--   On clicking a goblin, it should tell the user whether they hit the goblin or not, then update state and DOM appropriately with new HP
--   On clicking a goblin, it should tell the user whether the goblin hit the player or not, then update state and DOM appropriately with new HP
--   The number of vanquished goblins should be visible when state changes.
--   Render dead goblins differently, and disable clicking on them
--   When the user's HP is 0, launch a game over message
+1. Get everything done that you've done before -- i.e. stuff that looks like yesterday's labs
 
-### Rubric
+-   [ ] Set up your HTML with your defeatedGoblins span, your playerHP span, your form for adding new goblins
+-   [ ] Add your state variables in app.js
+-   [ ] Add event listener for your new goblin form
+-   [ ] TDD your `renderGoblin` function (TDD optional but helpful) -- should return an HTML element with the goblin's name and hp
+-   [ ] Add `displayGoblins` function which calls `renderGoblin` for each goblin in your list of goblins
 
-| Task                                                                                     | Points |
-| ---------------------------------------------------------------------------------------- | ------ |
-| ** Deploy Requirements **                                                                |        |
-| Main branch deployed to Netlify                                                          | 1      |
-| Open PR from `dev` branch with Netlify deploy preview                                    | 1      |
-| ** Acceptance Requirements **                                                            |        |
-| Users see HP and two default goblins                                                     | 2      |
-| Users can add a new goblin with default HP and name                                      | 2      |
-| Goblin click handler                                                                     | 6      |
-| - Uses Math.random() function to determine hits                                          |        |
-| - Alerts user whether they hit the goblin or not and updates HP                          |        |
-| - Alerts user whether the goblin hit them or not and updates HP                          |        |
-| Show number of vanquished goblins                                                        | 1      |
-| Display goblins differently and disable clicking when defeated                           | 1      |
-| Disable all functionality when the game is over                                          | 2      |
-| **Functions**                                                                            |        |
-| PURE: `renderGoblin(goblin)` : return DOM node`                                          | 2      |
-| IMPURE: `displayGoblins()` : clears DOM and appends goblin data to goblin list DOM node` | 2      |
+_ You know you're done here when you can add new goblins to the page_
 
-## Stretch goal ideas
+2. Deal with you click handler - one if / else at time
 
--   Change the player image to something stronger-looking every time they hit a new threshold (killed first goblin, killed three goblins, etc).
--   Change the player image based on their current health to show how worse-for-the-wear they've become.
--   Give goblins a random 'strength' property that determines how much damage they do to the player.
--   Give goblins a random 'agility' property that determines how often the play can hit them.
--   Give goblins a random 'dexterity' property that determines how often they hit the player.
--   Give the player a 'strength' property starting at 1 that determines how much damage they do to goblins. Every time a goblin dies, increment this property.
--   Add different kinds of monsters and render them differently by adding a 'type' property to the monster.
+### Goblin Click Handler Logic
+
+```js
+// if goblin's hp is 0, return
+// if(goblin.hp === 0) return;
+
+// if player hp is 0, return
+
+// randomly decide if player hit the goblin
+// if player hits the goblin
+//    reduce the goblin's hp
+//    call displayGoblins (this will re-render the goblins)
+//    alert the user that they hit the goblin
+//    if goblin hp is 0 -- incremenet the defeated goblins count
+// else player missed
+//     alert the user
+// randomly decide if goblin hit the player
+// if goblin hits player
+//    reduce player hp
+//    update the player hp span with new hp value
+//    alert the user
+//    if player hp is 0, alert user game over!!
+```

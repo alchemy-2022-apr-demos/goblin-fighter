@@ -8,7 +8,7 @@ const goblinListEl = document.querySelector('.goblins');
 
 // let state
 let defeatedGoblinsCount = 0;
-let playerHP = 10;
+let playerHP = 2;
 let goblins = [
     { name: 'Terry', hp: 1 },
     { name: 'Professor Goblin', hp: 4 },
@@ -59,4 +59,53 @@ function displayGoblins() {
 
 displayGoblins();
 
-function goblinClickHandler() {}
+function goblinClickHandler(goblin) {
+    console.log(`I am clicking on ${goblin.name}`);
+    // if goblin's hp is 0, return
+    if (goblin.hp === 0) return;
+
+    // if player hp is 0, return
+    if (playerHP === 0) return;
+
+    // randomly decide if player hit the goblin
+    const playerHit = Math.random();
+    // if player hits the goblin
+    // we get to decide what the odds are of hitting the goblin
+    // generate a random number between 0 and 1 and decide what
+    // odds you want by checking if that number is less than some cut-off
+    if (playerHit < 1) {
+        //    reduce the goblin's hp
+        goblin.hp--;
+        //    call displayGoblins (this will re-render the goblins)
+        displayGoblins();
+        //    alert the user that they hit the goblin
+        alert(`You hit ${goblin.name}!`);
+        //    if goblin hp is 0 -- incremenet the defeated goblins count
+        if (goblin.hp === 0) {
+            defeatedGoblinsCount++;
+            defeatedNumberEl.textContent = defeatedGoblinsCount;
+        }
+    } else {
+        // else player missed
+        //     alert the user
+        alert('You missed!');
+    }
+    // randomly decide if goblin hit the player
+    const goblinHit = Math.random();
+    // if goblin hits player
+    if (goblinHit < 1) {
+        //    reduce player hp
+        playerHP--;
+        //    update the player hp span with new hp value
+        adventurerHPEl.textContent = playerHP;
+        //    alert the user
+        alert(`${goblin.name} hit you!`);
+        //    if player hp is 0, alert user game over!!
+        if (playerHP === 0) {
+            alert('Game over :(');
+            adventurerImgEl.classList.add('game-over');
+        }
+    } else {
+        alert(`${goblin.name} tried to hit you and missed!`);
+    }
+}
